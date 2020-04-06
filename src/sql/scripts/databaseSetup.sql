@@ -99,7 +99,7 @@ INSERT INTO store VALUES('A&W', 'UBC village', 'Fast food', 'Ubereats');
 INSERT INTO store VALUES('Church’s Chicken', '41st Avenue', 'Fast food', 'Foodora');
 INSERT INTO store VALUES('Sura', 'downtown', 'Korean food', 'Fantuan');
 
-INSERT INTO supplier VALUES('Farm Produce', 'Potato', 'A&W', 13);
+INSERT INTO supplier VALUES('Farm Produce', 'Potato', 'A&W', 26);
 INSERT INTO supplier VALUES('Chicken Farm', 'Chicken', 'Church’s Chicken', 65);
 INSERT INTO supplier VALUES('Sushi Produce', 'Sushi', 'Sura', 34);
 

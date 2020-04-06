@@ -450,7 +450,7 @@ public class DatabaseModificationHandler extends DatabaseHandler {
     public void executeAggregation() {
         MainWindow.jta.append("Aggregation Query: Get average price of products offered by all suppliers.\n");
         String statement = "SELECT AVG (supplier_price) FROM supplier";
-        MainWindow.jta.append("Statement: || " + statement + " ||\n\n");
+        MainWindow.jta.append("Statement: " + statement + "\n\n");
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
@@ -472,7 +472,7 @@ public class DatabaseModificationHandler extends DatabaseHandler {
     public void executeGroupBy() {
         MainWindow.jta.append("GroupBy Query: Get number of customers in different gender.\n");
         String statement = "SELECT customer_gender, COUNT (*) FROM customer GROUP BY customer_gender";
-        MainWindow.jta.append("Statement: || " + statement + " ||\n\n");
+        MainWindow.jta.append("Statement: " + statement + "\n\n");
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
@@ -492,11 +492,18 @@ public class DatabaseModificationHandler extends DatabaseHandler {
     }
 
     public void executeDivision() {
-        MainWindow.jta.append("Division Query: Find id of all delivery man who work in Ubereats.\n");
-        String statement = "SELECT d.deliveryman_id FROM deliveryman d WHERE NOT EXISTS " +
-                "((SELECT a.app_name FROM app a WHERE a.app_name = 'Ubereats') EXCEPT " +
-                "(SELECT a2.app_name FROM app a2 WHERE a2.app_name = d.deliveryman_app_name)) ";
-        MainWindow.jta.append("Statement: || " + statement + " ||\n\n");
+        MainWindow.jta.append("Division Query: Find the name of all suppliers who do not supply Korean food to stores\n.\n");
+        String statement = "SELECT s.supplier_name " +
+                           "FROM supplier s " +
+                           "WHERE NOT EXISTS " +
+                           "(SELECT s1.store_name " +
+                           "FROM store s1 " +
+                           "WHERE s1.store_good_type = 'Korean food'" +
+                           "AND s1.store_name IN" +
+                           "(SELECT s2.store_name " +
+                           "FROM store s2 " +
+                           "WHERE s2.store_name = s.supplier_store_name))";
+        MainWindow.jta.append("Statement: " + statement + "\n\n");
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
@@ -518,7 +525,7 @@ public class DatabaseModificationHandler extends DatabaseHandler {
     public void joinQueryFirst() {
         MainWindow.jta.append("Join Query: Find all emails of customer who use Ubereats.\n");
         String statement = "SELECT customer_email FROM customer, account WHERE customer.customer_id = account.account_id AND account.account_app_name = 'Ubereats'";
-        MainWindow.jta.append("Statement: || " + statement + " ||\n\n");
+        MainWindow.jta.append("Statement: " + statement + "\n\n");
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(statement);
@@ -540,7 +547,7 @@ public class DatabaseModificationHandler extends DatabaseHandler {
     public void joinQuerySecond() {
         MainWindow.jta.append("Join Query: Find all apps which have membership customers.\n");
         String statement = "SELECT account_app_name FROM account, customer WHERE account.account_id = customer.customer_id AND customer.membership_fee > 0";
-        MainWindow.jta.append("Statement: || " + statement + " ||\n\n");
+        MainWindow.jta.append("Statement: " + statement + "\n\n");
         try {
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery(statement);

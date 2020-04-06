@@ -38,7 +38,6 @@ public class SelectionProjectionWindow extends AbstractWindow implements ActionL
         this.add(jp3, BorderLayout.SOUTH);
         this.setSize(450, 500);
         JFrameHelper.setCenter(this);
-        this.setAlwaysOnTop(true);
         this.setVisible(true);
 
         super.confirm.addActionListener(this);
